@@ -1,0 +1,37 @@
+#defencoding eucJP
+escape ^t^t
+multiuser on
+aclchg naname +rwx "#?"
+aclchg yubird +rwx "#?"
+autodetach on
+vbell off
+defscrollback 10000
+shelltitle ''
+# http://ducatt.blogspot.com/2007/04/screenutf-8screen.html
+defencoding utf-8 utf-8
+encoding utf-8 utf-8
+#hardstatus alwayslastline "[%02c] %`%-w%{=b bw}%n %t%{-}%+w"
+#caption always "[%02c]% {= wk} %-w%{=bu dr}%n %t%{-}%+w %= %{=b wb}%y/%m/%d(%D)"
+#caption always "[%02c]% %-w%{=bu dr}%n %t%{-}%+w %= %{=b wb}%y/%m/%d(%D)"
+caption always "[%02c] %`%-w%{=b bw}%n %t%{-}%+w"
+bind x command -c REGION
+bind -c REGION 2 split
+bind -c REGION 1 only
+bind -c REGION 0 remove
+bind -c REGION o focus
+bind -c REGION ^ resize
+
+shell zsh
+
+screen 0
+screen 1
+screen 2
+screen 3
+screen 4
+screen 5
+screen 6
+screen 7
+screen 8
+screen 9
+screen 10
+sessioname yousan
