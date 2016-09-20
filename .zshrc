@@ -111,3 +111,18 @@ export LC_CTYPE=en_US.utf8
 
 export WP_TESTS_DIR=~/tmp/wordpress/tests-lib/
 export WP_CORE_DIR=~/tmp/wordpress/core/
+
+function hashed_color () {
+    hash=`echo $1 | cksum | cut -d' ' -f1`
+    COLOR=$(( $hash % 256 ))
+    echo $COLOR
+}
+
+HOSTNAME=`hostname`
+USERNAME=`whoami`
+username_color=`hashed_color $USErNAME`
+host_color=`hashed_color $HOSTNAME`
+
+PROMPT=$'
+%F{$username_color}%n${PR_RST} @ %F{$host_color}%M${PR_RST} in %{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info)
+$ '
