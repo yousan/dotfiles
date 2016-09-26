@@ -111,6 +111,7 @@ export LC_CTYPE=en_US.utf8
 
 export WP_TESTS_DIR=~/tmp/wordpress/tests-lib/
 export WP_CORE_DIR=~/tmp/wordpress/core/
+export DISABLE_UPDATE_PROMPT="true"
 
 function hashed_color () {
     hash=`echo $1 | cksum | cut -d' ' -f1`
