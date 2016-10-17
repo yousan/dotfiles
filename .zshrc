@@ -113,7 +113,7 @@ function lh(){
 # added by travis gem
 [ -f /Users/yousan/.travis/travis.sh ] && source /Users/yousan/.travis/travis.sh
 export LC_CTYPE=en_US.UTF-8
-
+export LANG=en_US.UTF-8
 export WP_TESTS_DIR=~/tmp/wordpress/tests-lib/
 export WP_CORE_DIR=~/tmp/wordpress/core/
 export DISABLE_UPDATE_PROMPT="true"
