@@ -96,8 +96,8 @@ alias now='date +%Y%m%d%H%M%S'
 
 alias ssh='ssh -o ConnectTimeout=300 -C -o CompressionLevel=9 -o ServerAliveInterval=120 -o ServerAliveCountMax=12'
 alias svncowp='svn co http://core.svn.wordpress.org/trunk/'
-alias iconvue='iconv -f EUC-JP -t UTF-8'
-alias iconvse='iconv -f SJIS -t UTF-8'
+alias iconveu='iconv -f EUC-JP -t UTF-8'
+alias iconvsu='iconv -f SJIS -t UTF-8'
 
 #function ga() {
     # alias ga='git add -A; git commit -m "automatically commit"; git push origin master'
