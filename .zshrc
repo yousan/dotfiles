@@ -52,13 +52,14 @@ ZSH_THEME="steeef"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git)
-plugins=(my-env atom autojump aws brew brew-cask bundler cdd colored-man composer docker encode64 gem git heroku homeshick pow laravel laravel5 npm osx rails rake rbenv tig tmux vagrant web-search wp-cli zsh-syntax-highlighting)
+plugins=(my-env atom autojump aws brew brew-cask bundler cdd colored-man composer docker encode64 gem git git-flow-avh git-hubflow heroku homeshick pow laravel laravel5 npm osx rails rake rbenv tig tmux vagrant web-search wp-cli zsh-syntax-highlighting)
 
 
 # User configuration
 
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/yousan/sh:/Users/yousan/.android/sdk/tools:/Users/yousan/.composer/vendor/bin:/Users/yousan/sh:/Users/yousan/bin:/Users/yousan/.composer/vendor/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
+export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 
