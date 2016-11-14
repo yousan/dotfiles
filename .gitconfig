@@ -1,0 +1,14 @@
+[core]
+	excludesfile = /Users/yousan/.gitignore_global
+	autocrlf = input
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree-1.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[user]
+	name = Yousan_O
+	email = yousan@l2tp.org
+[commit]
+	template = /Users/yousan/.stCommitMsg
