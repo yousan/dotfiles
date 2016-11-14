@@ -12,3 +12,9 @@
 	email = yousan@l2tp.org
 [commit]
 	template = /Users/yousan/.stCommitMsg
+
+# https://stackoverflow.com/questions/2423777/is-it-possible-to-create-a-remote-repo-on-github-from-the-cli-without-opening-br/38265340#38265340
+[github]
+    user = "yousan"
+[alias]
+    hub-new-repo = "!REPO=$(basename $PWD) GHUSER=$(git config --get github.user); curl -u $GHUSER https://api.github.com/user/repos -d {\\\"name\\\":\\\"$REPO\\\"} --fail; git remote add origin git@github.com:$GHUSER/$REPO.git; git push origin master"
