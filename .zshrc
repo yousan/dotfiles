@@ -52,7 +52,7 @@ ZSH_THEME="steeef"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git)
-plugins=(my-env atom autojump aws brew brew-cask bundler cdd colored-man composer docker encode64 gem git git-flow-avh git-hubflow heroku homeshick pow laravel laravel5 npm osx rails rake rbenv tig tmux vagrant web-search wp-cli zsh-syntax-highlighting)
+plugins=(my-env atom autojump aws brew brew-cask bundler cdd colored-man composer docker docker-compose encode64 gem git git-flow-avh git-hubflow heroku homeshick pow laravel laravel5 npm osx rails rake rbenv tig tmux vagrant web-search wp-cli zsh-syntax-highlighting)
 
 
 # User configuration
@@ -134,3 +134,6 @@ PROMPT=$'
 %F{$username_color}%n${PR_RST} @ %F{$host_color}%M${PR_RST} in %{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info)
 $ '
 
+  export NVM_DIR="$HOME/.nvm"
+  . "/usr/local/opt/nvm/nvm.sh"
+export MAILCHECK=0
