@@ -57,7 +57,8 @@ plugins=(my-env atom autojump aws brew brew-cask bundler cdd colored-man compose
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/yousan/sh:/Users/yousan/.android/sdk/tools:/Users/yousan/.composer/vendor/bin:/Users/yousan/sh:/Users/yousan/bin:/Users/yousan/.composer/vendor/bin"
+export PATH="${HOME}/bin:${HOME}/sh"
+export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/yousan/.composer/vendor/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
 
@@ -134,6 +135,6 @@ PROMPT=$'
 %F{$username_color}%n${PR_RST} @ %F{$host_color}%M${PR_RST} in %{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info)
 $ '
 
-  export NVM_DIR="$HOME/.nvm"
-  . "/usr/local/opt/nvm/nvm.sh"
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
 export MAILCHECK=0
