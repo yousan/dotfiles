@@ -100,6 +100,7 @@ alias ssh='ssh -o ConnectTimeout=300 -C -o CompressionLevel=9 -o ServerAliveInte
 alias svncowp='svn co http://core.svn.wordpress.org/trunk/'
 alias iconveu='iconv -f EUC-JP -t UTF-8'
 alias iconvsu='iconv -f SJIS -t UTF-8'
+alias ifconfigio='curl http://ifconfig.io/ip'
 
 #function ga() {
     # alias ga='git add -A; git commit -m "automatically commit"; git push origin master'
