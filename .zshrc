@@ -101,6 +101,9 @@ alias svncowp='svn co http://core.svn.wordpress.org/trunk/'
 alias iconveu='iconv -f EUC-JP -t UTF-8'
 alias iconvsu='iconv -f SJIS -t UTF-8'
 alias ifconfigio='curl http://ifconfig.io/ip'
+alias op='open -a PhpStorm'
+alias os='open -a SourceTree'
+alias git='hub'
 
 #function ga() {
     # alias ga='git add -A; git commit -m "automatically commit"; git push origin master'
