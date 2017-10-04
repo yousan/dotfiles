@@ -52,7 +52,8 @@ ZSH_THEME="steeef"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git)
-plugins=(my-env atom autojump aws brew brew-cask bundler cdd colored-man composer docker docker-compose encode64 gem git git-flow-avh git-hubflow heroku homeshick pow laravel laravel5 npm osx rails rake rbenv tig tmux vagrant web-search wp-cli zsh-syntax-highlighting)
+plugins=(my-env autojump brew brew-cask bundler cake cakephp colored-man composer docker docker-compose encode64 git git-flow-avh git-hubflow heroku homeshick pow laravel laravel5 npm osx rails rake rbenv tig tmux vagrant web-search wp-cli zsh-syntax-highlighting)
+# disabled atom bundler cdd gem 
 
 
 # User configuration

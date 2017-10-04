@@ -5,7 +5,7 @@
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Users/yousan/Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [user]
 	name = Yousan_O
@@ -19,3 +19,5 @@
 [alias]
     hub-new-public-repo = "!REPO=$(basename $PWD) GHUSER=$(git config --get github.user); curl -u $GHUSER https://api.github.com/user/repos -d {\\\"name\\\":\\\"$REPO\\\"} --fail; git remote add origin git@github.com:$GHUSER/$REPO.git; git push origin master"
     hub-new-private-repo = "!REPO=$(basename $PWD) GHUSER=$(git config --get github.user); curl -u $GHUSER https://api.github.com/user/repos -d {\\\"name\\\":\\\"$REPO\\\"\\,\\\"private\\\":\\\"true\\\"} --fail; git remote add origin git@github.com:$GHUSER/$REPO.git; git push origin master"
+[color]
+	ui = true
