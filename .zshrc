@@ -58,8 +58,10 @@ plugins=(my-env autojump brew brew-cask bundler cake cakephp colored-man compose
 
 # User configuration
 
-export PATH="${HOME}/bin:${HOME}/sh"
+export PATH="./node_modules/.bin/"
+export PATH="$PATH:${HOME}/bin:${HOME}/sh"
 export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/yousan/.composer/vendor/bin"
+export PATH="$PATH:${HOME}/.nodebrew/current/bin/"
 # export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
 
@@ -143,3 +145,27 @@ $ '
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 export MAILCHECK=0
+
+export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+# fzf @see https://qiita.com/kamykn/items/aa9920f07487559c0c7e
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+
+# from Yamashou
+autoload select-history-cmd
+zle -N select-history
+bindkey '^r' select-history
+function select-history() {
+  BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
+  CURSOR=$#BUFFER
+}
+
+# frepo ってæつととèåがっく @see https://blog.fakiyer.com/entry/2016/01/29/142620
+function frepo() {
+  local dir
+  dir=$(ghq list > /dev/null | fzf-tmux --reverse +m) &&
+    cd $(ghq root)/$dir
+}
