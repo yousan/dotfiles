@@ -155,13 +155,13 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 
 # from Yamashou
-autoload select-history-cmd
-zle -N select-history
-bindkey '^r' select-history
-function select-history() {
-  BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
-  CURSOR=$#BUFFER
-}
+# autoload select-history-cmd
+# zle -N select-history
+# bindkey '^r' select-history
+# function select-history() {
+#   BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
+#   CURSOR=$#BUFFER
+# }
 
 # frepo ってæつととèåがっく @see https://blog.fakiyer.com/entry/2016/01/29/142620
 function frepo() {
