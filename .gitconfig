@@ -11,6 +11,7 @@
 	name = Yousan_O
 	email = yousan@l2tp.org
 [commit]
+	template = /Users/yousan/.stCommitMsg
 #	template = /Users/yousan/.ghq/gist.github.com/yousan/0a8db1fba05122ee44418744c443dbc8/.commit_template 
 
 # https://stackoverflow.com/questions/2423777/is-it-possible-to-create-a-remote-repo-on-github-from-the-cli-without-opening-br/38265340#38265340

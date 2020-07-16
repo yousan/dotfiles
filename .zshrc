@@ -52,7 +52,7 @@ ZSH_THEME="steeef"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #plugins=(git)
-plugins=(my-env autojump brew brew-cask bundler cake cakephp colored-man composer docker docker-compose encode64 git git-flow-avh git-hubflow heroku homeshick pow laravel laravel5 npm osx rails rake rbenv tig tmux vagrant web-search wp-cli zsh-syntax-highlighting)
+plugins=(autojump brew bundler cake composer docker docker-compose encode64 git git-flow-avh git-hubflow heroku kubectl pow laravel laravel5 npm notify osx rails rake rbenv tig vagrant web-search wp-cli zsh-syntax-highlighting)
 # disabled atom bundler cdd gem 
 
 
@@ -63,7 +63,12 @@ export PATH="$PATH:${HOME}/bin:${HOME}/sh"
 export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/yousan/.composer/vendor/bin"
 export PATH="$PATH:${HOME}/.nodebrew/current/bin/"
 # export MANPATH="/usr/local/man:$MANPATH"
-export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
+#export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
+export PATH="/usr/local/opt/php@7.2/bin:$PATH"
+export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
+export PATH="${HOME}/go/bin:${PATH}"
+
+
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,14 +104,19 @@ alias pi8='ping 8.8.8.8'
 alias today='date +%Y%m%d'
 alias now='date +%Y%m%d%H%M%S'
 
-alias ssh='ssh -o ConnectTimeout=300 -C -o CompressionLevel=9 -o ServerAliveInterval=120 -o ServerAliveCountMax=12'
+# alias ssh='ssh -o ConnectTimeout=300 -C -o CompressionLevel=9 -o ServerAliveInterval=120 -o ServerAliveCountMax=12'
+alias ssh='ssh -o ConnectTimeout=300 -C -o ServerAliveInterval=120 -o ServerAliveCountMax=12'
 alias svncowp='svn co http://core.svn.wordpress.org/trunk/'
+
+# SJISについてはバックスラッシュを変換できるようにするため、CP932を指定すると良い  https://qiita.com/kjunichi/items/518e337d29cc5bf6a70b
 alias iconveu='iconv -f EUC-JP -t UTF-8'
-alias iconvsu='iconv -f SJIS -t UTF-8'
+alias iconvsu='iconv -f cp932 -t UTF-8'
+alias iconvus='iconv -f UTF-8 -t cp932'
 alias ifconfigio='curl http://ifconfig.io/ip'
 alias op='open -a PhpStorm'
 alias os='open -a SourceTree'
 alias git='hub'
+alias curlhead='curl -o /dev/null -s -D - '
 
 #function ga() {
     # alias ga='git add -A; git commit -m "automatically commit"; git push origin master'
@@ -142,12 +152,11 @@ PROMPT=$'
 %F{$username_color}%n${PR_RST} @ %F{$host_color}%M${PR_RST} in %{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info)
 $ '
 
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
 export MAILCHECK=0
 
-export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+export PATH="$HOME/.phpenv/bin:$PATH"
+
 
 # fzf @see https://qiita.com/kamykn/items/aa9920f07487559c0c7e
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -169,3 +178,43 @@ function frepo() {
   dir=$(ghq list > /dev/null | fzf-tmux --reverse +m) &&
     cd $(ghq root)/$dir
 }
+
+# oracle用の設定
+# https://www.tank-sakurai.com/mac-os-x_oracle-database/
+export ORACLE_HOME=$HOME/bin/instantclient/
+export SQLPATH=$ORACLE_HOME
+export PATH="$PATH:$SQLPATH"
+
+# 時間の掛かるコマンドが終わったら通知 @see https://qiita.com/kei_s/items/96ee6929013f587b5878
+export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/slss.zsh
+
+# GCE
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+export HOMEBREW_GITHUB_API_TOKEN=6f75312f61b8e140f62e406e1cb5bcec7415dcf6
+
+
+
+eval "$(phpenv init -)"
+
+# for Android
+export ANDROID_HOME=~/Library/Android/sdk/
+export PATH=$ANDROID_HOME/bin:$PATH
+export JAVA_HOME=$(/usr/libexec/java_home)
+export PATH=$PATH:${JAVA_HOME}/bin
+export PATH=$PATH:${ANDROID_HOME}/platform-tools/adb
+
+# Pyenv https://qiita.com/koooooo/items/b21d87ffe2b56d0c589b
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
