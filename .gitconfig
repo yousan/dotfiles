@@ -8,7 +8,7 @@
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [user]
-	name = Yousan_O
+	name = yousan
 	email = yousan@l2tp.org
 [commit]
 	template = /Users/yousan/.stCommitMsg
@@ -21,5 +21,6 @@
     hub-new-public-repo = "!REPO=$(basename $PWD) GHUSER=$(git config --get github.user); curl -u $GHUSER https://api.github.com/user/repos -d {\\\"name\\\":\\\"$REPO\\\"} --fail; git remote add origin git@github.com:$GHUSER/$REPO.git; git push origin master"
     hub-new-private-repo = "!REPO=$(basename $PWD) GHUSER=$(git config --get github.user); curl -u $GHUSER https://api.github.com/user/repos -d {\\\"name\\\":\\\"$REPO\\\"\\,\\\"private\\\":\\\"true\\\"} --fail; git remote add origin git@github.com:$GHUSER/$REPO.git; git push origin master"
 	changelog = !python /Users/yousan/.gittag-changelog/src/gittag_changelog.py
+    delete-merged-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|main|master'|xargs git branch -d; };f"
 [color]
 	ui = true
