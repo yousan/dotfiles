@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 # Path to your oh-my-zsh installation.
 export ZSH=${HOME}/.oh-my-zsh
 
@@ -51,23 +53,26 @@ ZSH_THEME="steeef"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-#plugins=(git)
-plugins=(autojump brew bundler cake composer docker docker-compose encode64 git git-flow-avh git-hubflow heroku kubectl pow laravel laravel5 npm notify osx rails rake rbenv tig vagrant web-search wp-cli zsh-syntax-highlighting)
+plugins=(brew bundler cake composer docker docker-compose encode64 git git-flow-avh git-hubflow   kubectl laravel npm osx tig web-search wp-cli zsh-syntax-highlighting)
 # disabled atom bundler cdd gem 
-
 
 # User configuration
 
-export PATH="./node_modules/.bin/"
+export PATH="$PATH:./node_modules/.bin/" # 現在ディレクトリのnode_modules
+export PATH="$PATH:./vendor/bin/"
 export PATH="$PATH:${HOME}/bin:${HOME}/sh"
 export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/yousan/.composer/vendor/bin"
 export PATH="$PATH:${HOME}/.nodebrew/current/bin/"
 # export MANPATH="/usr/local/man:$MANPATH"
 #export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
-export PATH="/usr/local/opt/php@7.2/bin:$PATH"
-export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
-export PATH="${HOME}/go/bin:${PATH}"
+export PATH="/usr/local/opt/php@7.4/bin:$PATH"
+# export PATH="/usr/local/opt/php@8.0/bin:$PATH"
+# export PATH="/usr/local/opt/php@8.0/sbin:$PATH"
+# export PATH="/usr/local/opt/php@7.3/bin:$PATH"
+# export PATH="/usr/local/opt/php@7.3/sbin:$PATH"
 
+export PATH="${HOME}/go/bin:${PATH}"
+export GOPATH="${HOME}/go"
 
 
 source $ZSH/oh-my-zsh.sh
@@ -125,9 +130,9 @@ alias curlhead='curl -o /dev/null -s -D - '
 
 
 # thank you bongle!
-function lh(){
-    ls -lath $1 | head
-}
+# function lh(){
+#     ls -lath $1 | head
+# }
 
 # added by travis gem
 [ -f /Users/yousan/.travis/travis.sh ] && source /Users/yousan/.travis/travis.sh
@@ -218,3 +223,9 @@ export PATH=$PATH:${ANDROID_HOME}/platform-tools/adb
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# PlantUMLの最大サイズ https://www.pospome.work/entry/20160422/1461322513
+export PLANTUML_LIMIT_SIZE=81920
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
