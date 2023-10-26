@@ -53,7 +53,7 @@ ZSH_THEME="steeef"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(brew bundler cake composer docker docker-compose encode64 git git-flow-avh git-hubflow   kubectl laravel npm osx tig web-search wp-cli zsh-syntax-highlighting)
+plugins=(brew bundler cake composer docker docker-compose encode64 git kubectl laravel npm tig web-search wp-cli zsh-syntax-highlighting)
 # disabled atom bundler cdd gem 
 
 # User configuration
@@ -63,13 +63,7 @@ export PATH="$PATH:./vendor/bin/"
 export PATH="$PATH:${HOME}/bin:${HOME}/sh"
 export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/yousan/.composer/vendor/bin"
 export PATH="$PATH:${HOME}/.nodebrew/current/bin/"
-# export MANPATH="/usr/local/man:$MANPATH"
-#export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
 export PATH="/usr/local/opt/php@7.4/bin:$PATH"
-# export PATH="/usr/local/opt/php@8.0/bin:$PATH"
-# export PATH="/usr/local/opt/php@8.0/sbin:$PATH"
-# export PATH="/usr/local/opt/php@7.3/bin:$PATH"
-# export PATH="/usr/local/opt/php@7.3/sbin:$PATH"
 
 export PATH="${HOME}/go/bin:${PATH}"
 export GOPATH="${HOME}/go"
@@ -120,7 +114,7 @@ alias iconvus='iconv -f UTF-8 -t cp932'
 alias ifconfigio='curl http://ifconfig.io/ip'
 alias op='open -a PhpStorm'
 alias os='open -a SourceTree'
-alias git='hub'
+# alias git='hub'
 alias curlhead='curl -o /dev/null -s -D - '
 
 #function ga() {
@@ -159,10 +153,6 @@ $ '
 
 export MAILCHECK=0
 
-export PATH="/usr/local/opt/mysql-client/bin:$PATH"
-export PATH="$HOME/.phpenv/bin:$PATH"
-
-
 # fzf @see https://qiita.com/kamykn/items/aa9920f07487559c0c7e
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
@@ -184,48 +174,12 @@ function frepo() {
     cd $(ghq root)/$dir
 }
 
-# oracle用の設定
-# https://www.tank-sakurai.com/mac-os-x_oracle-database/
-export ORACLE_HOME=$HOME/bin/instantclient/
-export SQLPATH=$ORACLE_HOME
-export PATH="$PATH:$SQLPATH"
-
 # 時間の掛かるコマンドが終わったら通知 @see https://qiita.com/kei_s/items/96ee6929013f587b5878
 export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/sls.zsh
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/slss.zsh
-
-# GCE
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 export HOMEBREW_GITHUB_API_TOKEN=6f75312f61b8e140f62e406e1cb5bcec7415dcf6
 
-
-
 eval "$(phpenv init -)"
-
-# for Android
-export ANDROID_HOME=~/Library/Android/sdk/
-export PATH=$ANDROID_HOME/bin:$PATH
-export JAVA_HOME=$(/usr/libexec/java_home)
-export PATH=$PATH:${JAVA_HOME}/bin
-export PATH=$PATH:${ANDROID_HOME}/platform-tools/adb
-
-# Pyenv https://qiita.com/koooooo/items/b21d87ffe2b56d0c589b
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-# PlantUMLの最大サイズ https://www.pospome.work/entry/20160422/1461322513
-export PLANTUML_LIMIT_SIZE=81920
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
