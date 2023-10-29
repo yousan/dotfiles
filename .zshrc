@@ -53,7 +53,7 @@ ZSH_THEME="steeef"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(brew bundler cake composer docker docker-compose encode64 git git-flow-avh git-hubflow   kubectl laravel npm osx tig web-search wp-cli zsh-syntax-highlighting)
+plugins=(brew bundler cake composer docker docker-compose encode64 git git-flow-avh git-hubflow kubectl laravel npm osx tig web-search wp-cli zsh-syntax-highlighting)
 # disabled atom bundler cdd gem 
 
 # User configuration
@@ -159,7 +159,8 @@ $ '
 
 export MAILCHECK=0
 
-export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+# export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+export PATH="$PATH:/opt/homebrew/Cellar/mysql-client/8.0.30/bin"
 export PATH="$HOME/.phpenv/bin:$PATH"
 
 
@@ -204,10 +205,12 @@ export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
 [[ -f /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/yousan/.ghq/github.com/TheDesignium/alte-meister-api/node_modules/tabtab/.completions/slss.zsh
 
 # GCE
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
-export HOMEBREW_GITHUB_API_TOKEN=6f75312f61b8e140f62e406e1cb5bcec7415dcf6
+# source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+# source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 
+
+# export HOMEBREW_GITHUB_API_TOKEN=6f75312f61b8e140f62e406e1cb5bcec7415dcf6
+export HOMEBREW_GITHUB_API_TOKEN=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
 
 
 eval "$(phpenv init -)"
@@ -227,5 +230,23 @@ eval "$(pyenv init -)"
 # PlantUMLの最大サイズ https://www.pospome.work/entry/20160422/1461322513
 export PLANTUML_LIMIT_SIZE=81920
 
+# HOMEBREW用のgithub token
+if [[ -f ~/.zshrc.githubtoken ]]
+then
+  source ~/.zshrc.githubtoken
+else
+  echo 'No GitHub token file found.'
+  echo 'Go to https://github.com/settings/tokens'
+  echo 'public > public_repo'
+fi
+
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+# nvm
+# export NVM_DIR="$HOME/.nvm"
+#  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+#  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
 # Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+# [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+

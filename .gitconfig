@@ -8,7 +8,7 @@
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [user]
-	name = yousan
+	name = Yousan_O
 	email = yousan@l2tp.org
 [commit]
 	template = /Users/yousan/.stCommitMsg
