@@ -116,6 +116,8 @@ alias op='open -a PhpStorm'
 alias os='open -a SourceTree'
 # alias git='hub'
 alias curlhead='curl -o /dev/null -s -D - '
+alias claude='claude --dangerously-skip-permissions'
+
 
 #function ga() {
     # alias ga='git add -A; git commit -m "automatically commit"; git push origin master'
@@ -167,7 +169,7 @@ export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 #   CURSOR=$#BUFFER
 # }
 
-# frepo ってæつととèåがっく @see https://blog.fakiyer.com/entry/2016/01/29/142620
+# frepo  @see https://blog.fakiyer.com/entry/2016/01/29/142620
 function frepo() {
   local dir
   dir=$(ghq list > /dev/null | fzf-tmux --reverse +m) &&
@@ -185,8 +187,94 @@ else
   echo 'Go to https://github.com/settings/tokens and create token with public_repo scope.'
 fi
 
-eval "$(phpenv init -)"
-
+if [[ -f ~/.zshrc.openaitoken ]]
+then
+  source ~/.zshrc.openaitoken
+else
+  echo 'No OPENAI token for homebrew found.'
+fi
+;
 # Fig post block. Keep at the bottom of this file.
 # [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
 
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+
+# Anacondaを使う場合には下記の行を有効にする
+# __conda_setup="$('/Users/yousan/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#    eval "$__conda_setup"
+# else
+#    if [ -f "/Users/yousan/anaconda3/etc/profile.d/conda.sh" ]; then
+#         . "/Users/yousan/anaconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/Users/yousan/anaconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda initialize <<<
+
+# PHPENV
+export PHP_RPATHS="$(brew --prefix bzip2)"
+#export PHP_BUILD_CONFIGURE_OPTS="--with-bz2=$(brew --prefix bzip2) --with-iconv=$(brew --prefix libiconv) --with-tidy=$(brew --prefix tidy-html5) --with-external-pcre=$(brew --prefix pcre2) --with-zip --enable-intl --with-pear"
+export PHP_BUILD_CONFIGURE_OPTS="--with-bz2=$(brew --prefix bzip2) --with-iconv=$(brew --prefix libiconv) --with-tidy=$(brew --prefix tidy-html5) --with-zip --enable-intl --with-pear"
+export PKG_CONFIG_PATH="/usr/local/opt/krb5/lib/pkgconfig:/usr/local/opt/icu4c/lib/pkgconfig:/usr/local/opt/libedit/lib/pkgconfig:/usr/local/opt/libjpeg/lib/pkgconfig:/usr/local/opt/libpng/lib/pkgconfig:/usr/local/opt/libxml2/lib/pkgconfig:/usr/local/opt/libzip/lib/pkgconfig:/usr/local/opt/oniguruma/lib/pkgconfig:/usr/local/opt/openssl@1.1/lib/pkgconfig:/usr/local/opt/tidy-html5/lib/pkgconfig"
+PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+#alias grep='/usr/local/opt/grep/libexec/gnubin/grep'
+
+export PATH="$HOME/.phpenv/bin:$PATH"
+eval "$(phpenv init -)"
+
+export PATH=$HOME/.nodenv/bin:$PATH
+eval "$(nodenv init -)"
+
+# ruby for ubiteq d-drive
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/yousan/.dart-cli-completion/zsh-config.zsh ]] && . /Users/yousan/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
+
+## setting for wireshark to decrypt TLS
+#export SSLKEYLOGFILE="~/Desktop/pre-master-secret.log"
+
+
+# For Mac ports
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+
+
+# npm run コマンドの補完をカスタマイズ
+function _npm_run_file_completion {
+  local words cmd
+  words=("${(Q)words[@]}")
+  cmd=("${words[@]:1}")  # 最初の 'npm' を除外
+  
+  # `--spec` オプションの後にファイル補完を適用
+  _arguments \
+    '--spec:filename:_files'
+
+  return 0
+}
+
+# `npm run` の補完をオーバーライド
+compdef _npm_run_file_completion npm
+
+
+# HOMEBREW 自動更新間隔を 24時間に設定
+export HOMEBREW_AUTO_UPDATE_SECS="86400"
+
+# Added by Antigravity
+export PATH="/Users/yousan/.antigravity/antigravity/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# ディレクトリごとに特定の操作を行う、direnv
+# nvmでnodeのバージョンを書き換えるなど。
+
+eval "$(direnv hook zsh)"

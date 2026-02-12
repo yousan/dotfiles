@@ -21,6 +21,18 @@
     hub-new-public-repo = "!REPO=$(basename $PWD) GHUSER=$(git config --get github.user); curl -u $GHUSER https://api.github.com/user/repos -d {\\\"name\\\":\\\"$REPO\\\"} --fail; git remote add origin git@github.com:$GHUSER/$REPO.git; git push origin master"
     hub-new-private-repo = "!REPO=$(basename $PWD) GHUSER=$(git config --get github.user); curl -u $GHUSER https://api.github.com/user/repos -d {\\\"name\\\":\\\"$REPO\\\"\\,\\\"private\\\":\\\"true\\\"} --fail; git remote add origin git@github.com:$GHUSER/$REPO.git; git push origin master"
 	changelog = !python /Users/yousan/.gittag-changelog/src/gittag_changelog.py
-    delete-merged-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|main|master'|xargs git branch -d; };f"
+    delete-merged-branch = "!f() { \
+        target_branch=${1:-develop}; \
+        current_branch=$(git rev-parse --abbrev-ref HEAD); \
+        echo \"${target_branch} にマージされたブランチを削除します。${current_branch} は削除しません。\"; \
+        git branch --merged \"$target_branch\" | \
+        egrep -v \"^\\*|^(develop|main|master)$|^$current_branch$\" | \
+        xargs -r git branch -d; \
+    }; f"
 [color]
 	ui = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

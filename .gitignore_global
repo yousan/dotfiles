@@ -60,3 +60,4 @@ fabric.properties
 ## to here JetBrain gibo
 
 npm-shrinkwrap.json
+.fvm/flutter_sdk
