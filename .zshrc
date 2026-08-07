@@ -1,3 +1,4 @@
+export PATH="/home/yousan/.nvm/versions/node/v22.22.3/bin:$PATH"
 # Fig pre block. Keep at the top of this file.
 [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 # Path to your oh-my-zsh installation.
@@ -53,8 +54,30 @@ ZSH_THEME="steeef"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(brew bundler cake composer docker docker-compose encode64 git kubectl laravel npm tig web-search wp-cli zsh-syntax-highlighting)
-# disabled atom bundler cdd gem 
+plugins=(brew bundler cake composer docker docker-compose encode64 git kubectl laravel npm tig web-search wp-cli zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
+# disabled atom bundler cdd gem
+# zsh-syntax-highlighting は最後に置くこと（他プラグインの zle wrapper を壊さないため）
+
+# oh-my-zsh 同梱ではない外部プラグインが無ければ自動で取得する。
+# 初回起動時だけ clone が走る（2回目以降はディレクトリ判定のみでコストなし）。
+ZSH_CUSTOM=${ZSH_CUSTOM:-$ZSH/custom}
+typeset -A _ext_plugins=(
+  zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
+  zsh-autosuggestions     https://github.com/zsh-users/zsh-autosuggestions.git
+  zsh-completions         https://github.com/zsh-users/zsh-completions.git
+)
+for _p in ${(k)_ext_plugins}; do
+  if [[ ! -d $ZSH_CUSTOM/plugins/$_p ]] && (( $+commands[git] )); then
+    echo "[zshrc] installing $_p ..."
+    GIT_TERMINAL_PROMPT=0 git clone -q --depth=1 \
+      $_ext_plugins[$_p] $ZSH_CUSTOM/plugins/$_p \
+      || echo "[zshrc] failed to install $_p (skipped)"
+  fi
+  # clone に失敗した場合は plugins から外して 'plugin not found' を出さない
+  [[ -d $ZSH_CUSTOM/plugins/$_p ]] || plugins=(${plugins:#$_p})
+done
+unset _p
+unset _ext_plugins
 
 # User configuration
 
@@ -116,7 +139,23 @@ alias op='open -a PhpStorm'
 alias os='open -a SourceTree'
 # alias git='hub'
 alias curlhead='curl -o /dev/null -s -D - '
-alias claude='claude --dangerously-skip-permissions'
+# claude のフルパスを使って alias の再帰を避ける
+# alias claude='claude --dangerously-skip-permissions --continue'
+# alias claude='command claude --dangerously-skip-permissions'
+
+claude() {
+  local _proj="$(basename "$PWD")"
+  local _otel_extra="cwd=$PWD,project=$_proj,host.user=$USER,host.name=$(hostname)"
+  OTEL_RESOURCE_ATTRIBUTES="${_otel_extra}${OTEL_RESOURCE_ATTRIBUTES:+,$OTEL_RESOURCE_ATTRIBUTES}" \
+    command claude --dangerously-skip-permissions --continue "$@" 2>/dev/null \
+    || OTEL_RESOURCE_ATTRIBUTES="${_otel_extra}${OTEL_RESOURCE_ATTRIBUTES:+,$OTEL_RESOURCE_ATTRIBUTES}" \
+       command claude --dangerously-skip-permissions "$@"
+}
+
+# Claude用
+## コンテキストクリア、権限確認をスキップする
+export CLAUDE_ALWAYS_ALLOW=true
+
 
 
 #function ga() {
@@ -182,7 +221,8 @@ export NOTIFY_COMMAND_COMPLETE_TIMEOUT=10
 if [[ -f ~/.zshrc.githubtoken ]]
 then
   source ~/.zshrc.githubtoken
-else
+elif (( $+commands[brew] )); then
+  # brew のある環境（Mac）でのみ通知する
   echo 'No GitHub token for homebrew found.'
   echo 'Go to https://github.com/settings/tokens and create token with public_repo scope.'
 fi
@@ -190,10 +230,9 @@ fi
 if [[ -f ~/.zshrc.openaitoken ]]
 then
   source ~/.zshrc.openaitoken
-else
-  echo 'No OPENAI token for homebrew found.'
+elif (( $+commands[brew] )); then
+  echo 'No OPENAI token found.'
 fi
-;
 # Fig post block. Keep at the bottom of this file.
 # [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
 
@@ -215,19 +254,21 @@ fi
 # unset __conda_setup
 # <<< conda initialize <<<
 
-# PHPENV
-export PHP_RPATHS="$(brew --prefix bzip2)"
-#export PHP_BUILD_CONFIGURE_OPTS="--with-bz2=$(brew --prefix bzip2) --with-iconv=$(brew --prefix libiconv) --with-tidy=$(brew --prefix tidy-html5) --with-external-pcre=$(brew --prefix pcre2) --with-zip --enable-intl --with-pear"
-export PHP_BUILD_CONFIGURE_OPTS="--with-bz2=$(brew --prefix bzip2) --with-iconv=$(brew --prefix libiconv) --with-tidy=$(brew --prefix tidy-html5) --with-zip --enable-intl --with-pear"
+# PHPENV （brew が入っている環境＝Mac でのみ設定する）
+if (( $+commands[brew] )); then
+  export PHP_RPATHS="$(brew --prefix bzip2)"
+  #export PHP_BUILD_CONFIGURE_OPTS="--with-bz2=$(brew --prefix bzip2) --with-iconv=$(brew --prefix libiconv) --with-tidy=$(brew --prefix tidy-html5) --with-external-pcre=$(brew --prefix pcre2) --with-zip --enable-intl --with-pear"
+  export PHP_BUILD_CONFIGURE_OPTS="--with-bz2=$(brew --prefix bzip2) --with-iconv=$(brew --prefix libiconv) --with-tidy=$(brew --prefix tidy-html5) --with-zip --enable-intl --with-pear"
+fi
 export PKG_CONFIG_PATH="/usr/local/opt/krb5/lib/pkgconfig:/usr/local/opt/icu4c/lib/pkgconfig:/usr/local/opt/libedit/lib/pkgconfig:/usr/local/opt/libjpeg/lib/pkgconfig:/usr/local/opt/libpng/lib/pkgconfig:/usr/local/opt/libxml2/lib/pkgconfig:/usr/local/opt/libzip/lib/pkgconfig:/usr/local/opt/oniguruma/lib/pkgconfig:/usr/local/opt/openssl@1.1/lib/pkgconfig:/usr/local/opt/tidy-html5/lib/pkgconfig"
 PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 #alias grep='/usr/local/opt/grep/libexec/gnubin/grep'
 
 export PATH="$HOME/.phpenv/bin:$PATH"
-eval "$(phpenv init -)"
+(( $+commands[phpenv] )) && eval "$(phpenv init -)"
 
 export PATH=$HOME/.nodenv/bin:$PATH
-eval "$(nodenv init -)"
+(( $+commands[nodenv] )) && eval "$(nodenv init -)"
 
 # ruby for ubiteq d-drive
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
@@ -277,4 +318,17 @@ export NVM_DIR="$HOME/.nvm"
 # ディレクトリごとに特定の操作を行う、direnv
 # nvmでnodeのバージョンを書き換えるなど。
 
-eval "$(direnv hook zsh)"
+(( $+commands[direnv] )) && eval "$(direnv hook zsh)"
+
+# bun completions
+[ -s "/home/yousan/.bun/_bun" ] && source "/home/yousan/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+
+# OpenClaw Completion
+[ -f "$HOME/.openclaw/completions/openclaw.zsh" ] && source "$HOME/.openclaw/completions/openclaw.zsh"
+export PATH="$HOME/.local/bin:$PATH"
